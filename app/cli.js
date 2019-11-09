@@ -8,7 +8,7 @@ const Spinner = require('./utils/spinner');
 const questions = require('./utils/questions');
 const { createRepository } = require('./utils/repo');
 const validateArgsAndInputs = require('./utils/validate');
-const { flashError, showCLIVersion, displayRepoCreationFailure } = require('./utils/error');
+const { flashError, showCLIVersion } = require('./utils/error');
 
 const options = {};
 
@@ -30,6 +30,7 @@ const createRemoteRepoCLI = async (_input, _options) => {
 	}
 
 	if (repoName) {
+		console.log();
 		// get user options
 		const repoOptions = await inquirer.prompt(questions);
 
@@ -50,18 +51,26 @@ const createRemoteRepoCLI = async (_input, _options) => {
 		 *  3. create in org/user account
 		 */
 
-		// create remote repo
-		const repo = await createRepository({ repoName, ...repoOptions });
+		let repo = null;
+		let errMessage = null;
 
-		if (!repo) {
+		try {
+			// create remote repo
+			repo = await createRepository({ repoName, ...repoOptions });
+
+			spinner.succeed(`Successfully initialized ${isPrivate ? 'private' : 'public'} repository \`${repoName}\``);
+		} catch (err) {
+			errMessage = err && err.errors && err.errors[0].message;
+
+			spinner.fail(`Failed to create ${isPrivate ? 'private' : 'public'} repository \`${repoName}\``);
+		} finally {
 			spinner.stop();
-			displayRepoCreationFailure();
-
-			return;
 		}
 
-		spinner.succeed(`Successfully initialized ${isPrivate ? 'private' : 'public'} repository \`${repoName}\``);
-		spinner.stop();
+		if (!repo && errMessage) {
+			flashError(`Error: ${errMessage}`);
+			// return;
+		}
 	}
 };
 

@@ -18,12 +18,4 @@ const showCLIVersion = () => {
 	process.exit(1);
 };
 
-/**
- *  Display Repository Creation Failed Error
- */
-const displayRepoCreationFailure = () => {
-	console.log(chalk.error(`Repository Creation failed`));
-	process.exit(1);
-};
-
-module.exports = { flashError, showCLIVersion, displayRepoCreationFailure };
+module.exports = { flashError, showCLIVersion };
