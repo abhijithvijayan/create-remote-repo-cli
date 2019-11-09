@@ -35,10 +35,12 @@ const createRemoteRepoCLI = async (_input, _options) => {
 
 		const { isPrivate } = repoOptions;
 
+		// Refactor when https://github.com/sindresorhus/ora/issues/134 is resolved
 		console.log();
-		const spinner = new Spinner(
-			`Creating ${isPrivate ? 'private' : 'public'} Repository \`${repoName}\` on GitHub...`
-		);
+		const spinner = new Spinner({
+			text: `Creating ${isPrivate ? 'private' : 'public'} Repository \`${repoName}\` on GitHub...`,
+			discardStdin: false,
+		});
 		spinner.start();
 
 		/**
@@ -58,7 +60,7 @@ const createRemoteRepoCLI = async (_input, _options) => {
 			return;
 		}
 
-		spinner.succeed(`Successfully initialized ${isPrivate ? 'private' : 'public'} Repository \`${repoName}\``);
+		spinner.succeed(`Successfully initialized ${isPrivate ? 'private' : 'public'} repository \`${repoName}\``);
 		spinner.stop();
 	}
 };
