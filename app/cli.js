@@ -1,3 +1,7 @@
+/**
+ *  @author abhijithvijayan <abhijithvijayan.in>
+ */
+
 const inquirer = require('inquirer');
 
 const Spinner = require('./utils/spinner');
@@ -8,19 +12,21 @@ const { flashError, showCLIVersion, displayRepoCreationFailure } = require('./ut
 
 const options = {};
 
-module.exports.options = options;
-
-module.exports = async (_input, _options) => {
+const createRemoteRepoCLI = async (_input, _options) => {
 	const err = validateArgsAndInputs(_input, _options);
 
 	if (err) {
 		flashError(err);
+
+		return;
 	}
 
 	const { version, repoName } = options;
 
 	if (version) {
 		showCLIVersion();
+
+		return;
 	}
 
 	if (repoName) {
@@ -28,8 +34,11 @@ module.exports = async (_input, _options) => {
 		const repoOptions = await inquirer.prompt(questions);
 
 		const { isPrivate } = repoOptions;
+
 		console.log();
-		const spinner = new Spinner(`Creating ${isPrivate ? 'private' : 'public'} Repository ${repoName} on GitHub...`);
+		const spinner = new Spinner(
+			`Creating ${isPrivate ? 'private' : 'public'} Repository \`${repoName}\` on GitHub...`
+		);
 		spinner.start();
 
 		/**
@@ -45,9 +54,14 @@ module.exports = async (_input, _options) => {
 		if (!repo) {
 			spinner.stop();
 			displayRepoCreationFailure();
+
+			return;
 		}
 
 		spinner.succeed(`Successfully initialized ${isPrivate ? 'private' : 'public'} Repository \`${repoName}\``);
 		spinner.stop();
 	}
 };
+
+module.exports.options = options;
+module.exports = createRemoteRepoCLI;

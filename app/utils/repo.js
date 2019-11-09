@@ -1,5 +1,8 @@
 const Octokit = require('@octokit/rest');
 
+/**
+ *  Create repository
+ */
 const createRepository = ({ token = '', repoName, description, isPrivate, hasIssues, hasProjects, hasWiki }) => {
 	// Handle if token is not valid
 	const octokit = new Octokit({
