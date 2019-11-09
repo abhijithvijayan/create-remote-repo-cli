@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 
 const meow = require('meow');
-const cliApp = require('./cli');
+
+const ghRepoCLI = require('./cli');
 
 const cli = meow(
 	`
@@ -17,13 +18,12 @@ const cli = meow(
 	{
 		flags: {
 			boolean: ['version'],
-			string: ['token'],
+			string: ['create'],
 			alias: {
-				t: 'token',
 				v: 'version',
 			},
 		},
 	}
 );
 
-console.log(cliApp(cli.input || 'cli app', cli.flags));
+ghRepoCLI(cli.input, cli.flags);
