@@ -1,14 +1,13 @@
 const isArray = require('validate.io-array');
 const isObject = require('validate.io-object');
 const isString = require('validate.io-string-primitive');
+const validateName = require('validate-npm-package-name');
 const isBoolean = require('validate.io-boolean-primitive');
 
 const cli = require('../cli');
 
 const validateArgsAndInputs = (_input, _options) => {
 	const { options } = cli;
-
-	console.log(_input, _options);
 
 	/**
 	 *  Throw error if received input is not an Array
@@ -32,6 +31,20 @@ const validateArgsAndInputs = (_input, _options) => {
 	}
 
 	/**
+	 *  Throw error if the name is not valid
+	 */
+	if (_input.length) {
+		const appName = _input[0];
+		const validationResult = validateName(appName);
+
+		if (!validationResult.validForNewPackages) {
+			return new TypeError(`invalid input argument. The repo name is not valid. Value: \`${appName}\`.`);
+		}
+		// push to object
+		options.repoName = appName;
+	}
+
+	/**
 	 *  Map `v` to `--version`
 	 */
 	if (
@@ -39,6 +52,7 @@ const validateArgsAndInputs = (_input, _options) => {
 		Object.prototype.hasOwnProperty.call(_options, 'v')
 	) {
 		options.version = _options.version || _options.v;
+
 		if (!isBoolean(options.version)) {
 			return new TypeError(`invalid option. Version option must be a boolean primitive.`);
 		}
