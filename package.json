@@ -1,9 +1,9 @@
 {
-	"name": "starter-cli",
-	"version": "0.0.0",
-	"description": "My awesome command-line tool",
+	"name": "create-remote-repo",
+	"version": "0.0.1",
+	"description": "Create GitHub repo from Command-line",
 	"license": "MIT",
-	"repository": "YOUR-GITHUB-USERNAME/starter-cli",
+	"repository": "https://github.com/abhijithvijayan/create-remote-repo-cli.git",
 	"author": {
 		"name": "abhijithvijayan",
 		"email": "34790378+abhijithvijayan@users.noreply.github.com",
@@ -33,7 +33,10 @@
 	},
 	"keywords": [
 		"cli",
-		"cli-app"
+		"cli-app",
+		"github",
+		"repo",
+		"command-line"
 	],
 	"dependencies": {
 		"meow": "^5.0.0"
