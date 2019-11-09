@@ -39,6 +39,7 @@
 		"command-line"
 	],
 	"dependencies": {
+		"@octokit/rest": "^16.34.1",
 		"meow": "^5.0.0"
 	},
 	"devDependencies": {
