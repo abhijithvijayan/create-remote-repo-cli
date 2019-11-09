@@ -26,7 +26,7 @@ const questions = [
 	},
 	{
 		name: 'token',
-		type: 'input',
+		type: 'password',
 		message: 'Enter GitHub token:',
 	},
 ];
