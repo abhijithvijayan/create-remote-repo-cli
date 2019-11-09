@@ -37,7 +37,7 @@ const validateArgsAndInputs = (_input, _options) => {
 		const appName = _input[0];
 		const validationResult = validateName(appName);
 
-		if (!validationResult.validForNewPackages) {
+		if (!validationResult.validForOldPackages || !isString(appName)) {
 			return new TypeError(`invalid input argument. The repo name is not valid. Value: \`${appName}\`.`);
 		}
 		// push to object
