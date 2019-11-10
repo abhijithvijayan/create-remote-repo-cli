@@ -1,6 +1,8 @@
 const Octokit = require('@octokit/rest');
 const inquirer = require('inquirer');
 
+const Spinner = require('./spinner');
+
 const getUserOrganisations = async octokit => {
 	try {
 		const { data } = await octokit.orgs.listForAuthenticatedUser();
@@ -16,26 +18,41 @@ const getUserOrganisations = async octokit => {
 };
 
 /**
+ *  Verify user authentication
+ */
+const getUserDetails = async octokit => {
+	try {
+		const { data } = await octokit.users.getAuthenticated();
+
+		return data.name;
+	} catch (err) {
+		console.log(`Your Personal Access Token does not seem to be valid. Please regenerate the token.`);
+	}
+
+	return null;
+};
+
+/**
  *  Find the target to create repository
  */
-const getTargetToInstallRepo = async octokit => {
-	let targetAccount = { account: 'username' };
+const getTargetToInstallRepo = async ({ octokit, user }) => {
+	let targetAccount = { account: user, id: 0 };
 
 	// ToDo: add spinner
 	const orgList = await getUserOrganisations(octokit);
 
 	if (orgList.length) {
-		let choices = orgList.map(item => {
+		let choices = orgList.map(org => {
 			return {
-				name: `${item.login}: ${item.description}`,
-				value: item.login,
+				name: `${org.login}: ${org.description}`,
+				value: org.login,
 			};
 		});
 
-		// ToDo: get username & add user to the list
-		choices = [...choices, { name: 'username: Your Personal Account.', value: 'username ' }];
+		// inject user account to choice list
+		choices = [{ name: `${user}: Your Personal Account`, value: user }, ...choices];
 
-		// give choice to user
+		// prompt choices to user
 		targetAccount = await inquirer.prompt([
 			{
 				type: 'list',
@@ -44,45 +61,63 @@ const getTargetToInstallRepo = async octokit => {
 				choices,
 			},
 		]);
+
+		// ToDo: inject id property to the object
 	}
 
-	// ToDo: return default option to install to user account
+	// ToDo: this doesn't return id property
 	return targetAccount;
 };
 
 /**
- *  Create repository
+ *  Handle repository creation
  */
-const createRepository = async ({ token = '', repoName, description, isPrivate, hasIssues, hasProjects, hasWiki }) => {
+const createRepository = async (
+	{ token = '', repoName, description, isPrivate, hasIssues, hasProjects, hasWiki },
+	spinner
+) => {
 	// Handle if token is not valid
 	const octokit = new Octokit({
 		auth: token,
 	});
 
-	const { account } = await getTargetToInstallRepo(octokit);
+	// Authenticate to identify user
+	const user = await getUserDetails(octokit);
 
-	console.log(account);
+	if (user) {
+		const targetAccount = await getTargetToInstallRepo({ octokit, user });
 
-	/**
-	 *  ToDo:
-	 *
-	 * 	1. Get organisation list (if nothing create user repo)
-	 *  2. Authenticate with Octokit api
-	 *  3. Show options to user
-	 */
+		const repoOptions = {
+			name: repoName,
+			description,
+			private: isPrivate,
+			has_issues: hasIssues,
+			has_projects: hasProjects,
+			has_wiki: hasWiki,
+		};
 
-	// ToDo: check if token is valid
+		spinner.start();
 
-	const repoOptions = {
-		name: repoName,
-		description,
-		private: isPrivate,
-		has_issues: hasIssues,
-		has_projects: hasProjects,
-		has_wiki: hasWiki,
-	};
+		// create in org / user account
+		switch (targetAccount.id) {
+			case 0: {
+				console.log('creating in account');
+				return octokit.repos.createForAuthenticatedUser(repoOptions);
+			}
 
-	return octokit.repos.createForAuthenticatedUser(repoOptions);
+			default: {
+				const opts = {
+					...repoOptions,
+					org: targetAccount.account,
+				};
+
+				return octokit.repos.createInOrg(opts);
+			}
+		}
+	}
+
+	// ToDo: return with error message | no such user | invalid token
+	process.exit(1);
 };
 
 module.exports = { createRepository };

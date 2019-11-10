@@ -30,33 +30,25 @@ const createRemoteRepoCLI = async (_input, _options) => {
 	}
 
 	if (repoName) {
-		console.log();
-		// get user options
+		// prompt & get user options
 		const repoOptions = await inquirer.prompt(questions);
 
 		const { isPrivate } = repoOptions;
 
 		// Refactor when https://github.com/sindresorhus/ora/issues/134 is resolved
 		console.log();
+		console.log();
 		const spinner = new Spinner({
 			text: `Creating ${isPrivate ? 'private' : 'public'} Repository \`${repoName}\` on GitHub...`,
 			discardStdin: false,
 		});
-		spinner.start();
-
-		/**
-		 * ToDo:
-		 * 	1. get orgs with octokit auth
-		 *  2. Inquire where to create repo
-		 *  3. create in org/user account
-		 */
 
 		let repo = null;
 		let errMessage = null;
 
 		try {
 			// create remote repo
-			repo = await createRepository({ repoName, ...repoOptions });
+			repo = await createRepository({ repoName, ...repoOptions }, spinner);
 
 			spinner.succeed(`Successfully initialized ${isPrivate ? 'private' : 'public'} repository \`${repoName}\``);
 		} catch (err) {
