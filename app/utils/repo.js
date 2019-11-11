@@ -1,8 +1,12 @@
 const Octokit = require('@octokit/rest');
 const inquirer = require('inquirer');
 
+const Spinner = require('./spinner');
 const { showInvalidTokenError, showOrgTokenScopeError } = require('./messages');
 
+/**
+ *  Get a list of GitHub orgs user is member of
+ */
 const getUserOrganisations = async octokit => {
 	try {
 		const { data } = await octokit.orgs.listForAuthenticatedUser();
@@ -19,11 +23,17 @@ const getUserOrganisations = async octokit => {
  *  Verify user authentication
  */
 const getUserDetails = async octokit => {
+	const authSpinner = new Spinner(`Authenticating with GitHub. Please wait...`);
+
 	try {
+		authSpinner.start();
 		const { data } = await octokit.users.getAuthenticated();
 
+		authSpinner.stop();
 		return data.login;
 	} catch (err) {
+		authSpinner.stop();
+
 		showInvalidTokenError();
 	}
 
@@ -31,13 +41,12 @@ const getUserDetails = async octokit => {
 };
 
 /**
- *  Find the target to create repository
+ *  Find the target account to create repository
  */
 const getTargetToInstallRepo = async ({ octokit, user }) => {
 	const userAccount = { name: user, id: 0 };
 	let targetAccount = userAccount;
 
-	// ToDo: add spinner
 	const orgList = await getUserOrganisations(octokit);
 
 	if (orgList.length) {
