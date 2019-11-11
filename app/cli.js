@@ -8,7 +8,7 @@ const Spinner = require('./utils/spinner');
 const questions = require('./utils/questions');
 const { createRepository } = require('./utils/repo');
 const validateArgsAndInputs = require('./utils/validate');
-const { flashError, showCLIVersion } = require('./utils/error');
+const { flashError, showCLIVersion } = require('./utils/messages');
 
 const options = {};
 
