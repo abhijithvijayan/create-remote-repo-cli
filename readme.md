@@ -4,7 +4,7 @@
 
 [![Build Status](https://travis-ci.com/abhijithvijayan/create-remote-repo-cli.svg?token=bJxrXYoNqDthzrKNTKiz&branch=master)](https://travis-ci.com/abhijithvijayan/create-remote-repo-cli)
 
-<img src="demo.gif" width="752">
+<img src="demo_main.gif" width="752">
 
 ## Install
 
