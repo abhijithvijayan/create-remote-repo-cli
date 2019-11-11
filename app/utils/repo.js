@@ -1,15 +1,15 @@
 const Octokit = require('@octokit/rest');
 const inquirer = require('inquirer');
 
+const { showInvalidTokenError, showOrgTokenScopeError } = require('./messages');
+
 const getUserOrganisations = async octokit => {
 	try {
 		const { data } = await octokit.orgs.listForAuthenticatedUser();
 
 		return data;
 	} catch (err) {
-		console.log(
-			`You need to grant Org Permissions for your Personal Access Token, if you want to create a Repository for an Organization.`
-		);
+		showOrgTokenScopeError();
 	}
 
 	return [];
@@ -24,7 +24,7 @@ const getUserDetails = async octokit => {
 
 		return data.login;
 	} catch (err) {
-		console.log(`Your Personal Access Token does not seem to be valid. Please regenerate the token.`);
+		showInvalidTokenError();
 	}
 
 	return null;
@@ -114,7 +114,6 @@ const createRepository = async (
 		}
 	}
 
-	// ToDo: return with error message | no such user | invalid token
 	process.exit(1);
 };
 

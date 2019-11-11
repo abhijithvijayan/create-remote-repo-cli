@@ -18,4 +18,21 @@ const showCLIVersion = () => {
 	process.exit(1);
 };
 
-module.exports = { flashError, showCLIVersion };
+/**
+ *  Invalid Token Error
+ */
+const showInvalidTokenError = () => {
+	console.log();
+	console.log(chalk.bold.red(`✖ Your Personal Access Token does not seem to be valid. Please regenerate the token.`));
+};
+
+const showOrgTokenScopeError = () => {
+	console.log();
+	console.log(
+		chalk.bold.red(
+			`✖ You need to grant Org Permissions for your Personal Access Token, if you want to create a Repository for an Organization.`
+		)
+	);
+};
+
+module.exports = { flashError, showCLIVersion, showInvalidTokenError, showOrgTokenScopeError };
