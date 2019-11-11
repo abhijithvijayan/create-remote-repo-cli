@@ -30,14 +30,13 @@ const createRemoteRepoCLI = async (_input, _options) => {
 	}
 
 	if (repoName) {
+		console.log();
 		// prompt & get user options
 		const repoOptions = await inquirer.prompt(questions);
 
 		const { isPrivate } = repoOptions;
 
 		// Refactor when https://github.com/sindresorhus/ora/issues/134 is resolved
-		console.log();
-		console.log();
 		const spinner = new Spinner({
 			text: `Creating ${isPrivate ? 'private' : 'public'} Repository \`${repoName}\` on GitHub...`,
 			discardStdin: false,
