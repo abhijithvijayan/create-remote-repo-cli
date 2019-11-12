@@ -11,7 +11,8 @@
 	},
 	"bin": "./app/index.js",
 	"files": [
-		"/app"
+		"/app",
+		"demo.gif"
 	],
 	"engines": {
 		"node": ">=8"
