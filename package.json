@@ -1,6 +1,6 @@
 {
 	"name": "create-remote-repo",
-	"version": "0.4.2",
+	"version": "0.4.3",
 	"description": "Create GitHub repo from Command-line",
 	"license": "MIT",
 	"repository": "https://github.com/abhijithvijayan/create-remote-repo-cli.git",
