@@ -42,6 +42,7 @@
 	"dependencies": {
 		"@octokit/rest": "^16.35.0",
 		"chalk": "^3.0.0",
+		"execa": "^3.3.0",
 		"inquirer": "^7.0.0",
 		"meow": "^5.0.0",
 		"ora": "^4.0.2",
