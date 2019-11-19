@@ -14,7 +14,7 @@ const flashError = message => {
  *  Display CLI Version
  */
 const showCLIVersion = () => {
-	console.log(chalk.default(pkg.version));
+	console.log(chalk(pkg.version));
 	process.exit(1);
 };
 
