@@ -6,9 +6,9 @@ const inquirer = require('inquirer');
 
 const Spinner = require('./utils/spinner');
 const questions = require('./utils/questions');
-const { createRepository } = require('./utils/repo');
 const validateArgsAndInputs = require('./utils/validate');
 const { flashError, showCLIVersion } = require('./utils/messages');
+const { createRepository, updateLocalRepo } = require('./utils/repo');
 
 const options = {};
 
@@ -60,7 +60,21 @@ const createRemoteRepoCLI = async (_input, _options) => {
 
 		if (!repo && errMessage) {
 			flashError(`Error: ${errMessage}`);
-			// return;
+			return;
+		}
+		console.log();
+
+		const { initRepo } = await inquirer.prompt([
+			{
+				type: 'confirm',
+				name: 'initRepo',
+				message: 'Do you want to initialize a local project or update existing?',
+			},
+		]);
+
+		// Update or create a git directory
+		if (initRepo) {
+			await updateLocalRepo(repo);
 		}
 	}
 };
