@@ -1,5 +1,8 @@
+/* eslint-disable camelcase */
 const Octokit = require('@octokit/rest');
 const inquirer = require('inquirer');
+const execa = require('execa');
+const fs = require('fs');
 
 const Spinner = require('./spinner');
 const { showInvalidTokenError, showOrgTokenScopeError } = require('./messages');
@@ -126,4 +129,20 @@ const createRepository = async (
 	process.exit(1);
 };
 
-module.exports = { createRepository };
+/**
+ *  Update Local Repo
+ */
+const updateLocalRepo = async ({ data: { html_url } }) => {
+	try {
+		if (fs.existsSync(`.git`)) {
+			await execa('git', ['remote', 'remove', 'origin']);
+		}
+
+		await execa('git', ['init']);
+		await execa('git', ['remote', 'add', 'origin', `${html_url}.git`]);
+	} catch (err) {
+		console.log(err);
+	}
+};
+
+module.exports = { createRepository, updateLocalRepo };
