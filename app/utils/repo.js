@@ -5,7 +5,7 @@ const execa = require('execa');
 const fs = require('fs');
 
 const Spinner = require('./spinner');
-const { showInvalidTokenError, showOrgTokenScopeError } = require('./messages');
+const { showInvalidTokenError, showOrgTokenScopeError, showLocalRepoUpdateError } = require('./messages');
 
 /**
  *  Get a list of GitHub orgs user is member of
@@ -141,7 +141,7 @@ const updateLocalRepo = async ({ data: { html_url } }) => {
 		await execa('git', ['init']);
 		await execa('git', ['remote', 'add', 'origin', `${html_url}.git`]);
 	} catch (err) {
-		console.log(err);
+		showLocalRepoUpdateError();
 	}
 };
 

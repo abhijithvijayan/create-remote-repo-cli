@@ -35,4 +35,15 @@ const showOrgTokenScopeError = () => {
 	);
 };
 
-module.exports = { flashError, showCLIVersion, showInvalidTokenError, showOrgTokenScopeError };
+const showLocalRepoUpdateError = () => {
+	console.log();
+	console.log(chalk.bold.red(`✖ Failed to initialize or update the local repository`));
+};
+
+module.exports = {
+	flashError,
+	showCLIVersion,
+	showInvalidTokenError,
+	showOrgTokenScopeError,
+	showLocalRepoUpdateError,
+};
