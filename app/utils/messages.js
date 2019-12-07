@@ -35,9 +35,16 @@ const showOrgTokenScopeError = () => {
 	);
 };
 
-const showLocalRepoUpdateError = () => {
+const showLocalRepoUpdateError = ({ repoUrl }) => {
 	console.log();
-	console.log(chalk.bold.red(`✖ Failed to initialize or update the local repository`));
+	console.log(chalk.bold.red(`✖ Failed to initialize or update the local repository.`));
+	console.log();
+	console.log(chalk.green(`Try running \`git remote add origin ${repoUrl}.git\``));
+};
+
+const showLocalRepoUpdateSuccess = () => {
+	console.log();
+	console.log(chalk.green(`Success! Initialized local project with new repo remote url.`));
 };
 
 module.exports = {
@@ -46,4 +53,5 @@ module.exports = {
 	showInvalidTokenError,
 	showOrgTokenScopeError,
 	showLocalRepoUpdateError,
+	showLocalRepoUpdateSuccess,
 };
