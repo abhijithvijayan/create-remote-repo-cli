@@ -135,13 +135,16 @@ const createRepository = async (
 const updateLocalRepo = async ({ data: { html_url } }) => {
 	try {
 		if (fs.existsSync(`.git`)) {
-			await execa('git', ['remote', 'remove', 'origin']);
+			try {
+				await execa('git', ['remote', 'remove', 'origin']);
+			} catch (err) {
+				// No such remote: origin
+			}
 		}
-
 		await execa('git', ['init']);
 		await execa('git', ['remote', 'add', 'origin', `${html_url}.git`]);
 	} catch (err) {
-		showLocalRepoUpdateError();
+		showLocalRepoUpdateError({ repoUrl: html_url });
 	}
 };
 
