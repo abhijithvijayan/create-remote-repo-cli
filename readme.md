@@ -1,8 +1,8 @@
-# create-remote-repo [![npm version](https://img.shields.io/npm/v/create-remote-repo)](https://www.npmjs.com/package/create-remote-repo)
+# create-remote-repo [![npm version](https://img.shields.io/npm/v/create-remote-repo)](https://www.npmjs.com/package/create-remote-repo) [![Build Status](https://travis-ci.com/abhijithvijayan/create-remote-repo-cli.svg?token=bJxrXYoNqDthzrKNTKiz&branch=master)](https://travis-ci.com/abhijithvijayan/create-remote-repo-cli)
 
 > Create GitHub repo from Command-line
 
-[![Build Status](https://travis-ci.com/abhijithvijayan/create-remote-repo-cli.svg?token=bJxrXYoNqDthzrKNTKiz&branch=master)](https://travis-ci.com/abhijithvijayan/create-remote-repo-cli)
+### 🙋‍♂️ Made by [@abhijithvijayan](https://twitter.com/_abhijithv)
 
 <img src="demo.gif" width="752">
 
