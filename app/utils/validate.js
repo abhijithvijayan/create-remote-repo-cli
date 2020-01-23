@@ -2,7 +2,6 @@ const isArray = require('validate.io-array');
 const isObject = require('validate.io-object');
 const isString = require('validate.io-string-primitive');
 const validateName = require('validate-npm-package-name');
-const isBoolean = require('validate.io-boolean-primitive');
 
 const cli = require('../cli');
 
