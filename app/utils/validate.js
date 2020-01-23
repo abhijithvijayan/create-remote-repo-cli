@@ -27,7 +27,7 @@ const validateArgsAndInputs = (_input, _options) => {
 	 *  Throw error if no argument / input entered
 	 */
 	if (!_input.length && !Object.entries(_options).length) {
-		return new TypeError(`invalid input. Must supply atleast an argument or some option.`);
+		return new TypeError(`invalid input. Must supply atleast a valid argument or some option.`);
 	}
 
 	/**
@@ -42,20 +42,6 @@ const validateArgsAndInputs = (_input, _options) => {
 		}
 		// push to object
 		options.repoName = appName;
-	}
-
-	/**
-	 *  Map `v` to `--version`
-	 */
-	if (
-		Object.prototype.hasOwnProperty.call(_options, 'version') ||
-		Object.prototype.hasOwnProperty.call(_options, 'v')
-	) {
-		options.version = _options.version || _options.v;
-
-		if (!isBoolean(options.version)) {
-			return new TypeError(`invalid option. Version option must be a boolean primitive.`);
-		}
 	}
 
 	return null;

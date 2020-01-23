@@ -21,13 +21,7 @@ const createRemoteRepoCLI = async (_input, _options) => {
 		return;
 	}
 
-	const { version, repoName } = options;
-
-	if (version) {
-		showCLIVersion();
-
-		return;
-	}
+	const { repoName } = options;
 
 	if (repoName) {
 		console.log();
