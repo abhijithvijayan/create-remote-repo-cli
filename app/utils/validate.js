@@ -26,7 +26,7 @@ const validateArgsAndInputs = (_input, _options) => {
 	/**
 	 *  Throw error if no argument / input entered
 	 */
-	if (!_input.length && !Object.entries(_options).length) {
+	if (!_input.length || !Object.entries(_options).length) {
 		return new TypeError(`invalid input. Must supply atleast a valid argument or some option.`);
 	}
 
