@@ -11,14 +11,6 @@ const flashError = message => {
 };
 
 /**
- *  Display CLI Version
- */
-const showCLIVersion = () => {
-	console.log(chalk(pkg.version));
-	process.exit(1);
-};
-
-/**
  *  Invalid Token Error
  */
 const showInvalidTokenError = () => {
@@ -49,7 +41,6 @@ const showLocalRepoUpdateSuccess = () => {
 
 module.exports = {
 	flashError,
-	showCLIVersion,
 	showInvalidTokenError,
 	showOrgTokenScopeError,
 	showLocalRepoUpdateError,

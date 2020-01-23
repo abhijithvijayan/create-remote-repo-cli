@@ -7,7 +7,7 @@ const inquirer = require('inquirer');
 const Spinner = require('./utils/spinner');
 const questions = require('./utils/questions');
 const validateArgsAndInputs = require('./utils/validate');
-const { flashError, showCLIVersion } = require('./utils/messages');
+const { flashError } = require('./utils/messages');
 const { createRepository, updateLocalRepo } = require('./utils/repo');
 
 const options = {};
