@@ -15,7 +15,7 @@
 		"demo.gif"
 	],
 	"engines": {
-		"node": ">=8 <=12"
+		"node": ">=10"
 	},
 	"scripts": {
 		"lint": "eslint .",

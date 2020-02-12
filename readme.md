@@ -19,7 +19,7 @@
 
 ## Install
 
-Ensure you have [Node.js](https://nodejs.org) 8 or later installed. Then run the following:
+Ensure you have [Node.js](https://nodejs.org) 10 or later installed. Then run the following:
 
 ```
 $ npm install --global create-remote-repo
