@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-const Octokit = require('@octokit/rest');
+const { Octokit } = require('@octokit/rest');
 const inquirer = require('inquirer');
 const execa = require('execa');
 const fs = require('fs');

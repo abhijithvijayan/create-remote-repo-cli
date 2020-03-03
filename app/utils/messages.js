@@ -1,7 +1,5 @@
 const chalk = require('chalk');
 
-const pkg = require('../../package.json');
-
 /**
  *  Display Validation Errors
  */
