@@ -1,0 +1,9 @@
+{
+	"extends": "@abhijithvijayan/tsconfig",
+	"compilerOptions": {
+		"outDir": "dist"
+	},
+	"include": [
+		"source"
+	]
+}

@@ -51,6 +51,7 @@
 		"validate.io-string-primitive": "^1.0.1"
 	},
 	"devDependencies": {
+		"@abhijithvijayan/tsconfig": "^1.1.2",
 		"babel-eslint": "10.1.0",
 		"eslint": "^6.8.0",
 		"eslint-config-airbnb": "^18.0.1",
