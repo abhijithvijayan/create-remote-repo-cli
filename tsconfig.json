@@ -1,7 +1,8 @@
 {
 	"extends": "@abhijithvijayan/tsconfig",
 	"compilerOptions": {
-		"outDir": "dist"
+		"outDir": "dist",
+		"allowJs": true
 	},
 	"include": [
 		"source"

@@ -9,14 +9,15 @@
 		"email": "34790378+abhijithvijayan@users.noreply.github.com",
 		"url": "https://abhijithvijayan.in"
 	},
-	"bin": "./app/index.js",
+	"engines": {
+		"node": ">=10.0.0"
+	},
+	"bin": "./dist/index.js",
+	"types": "dist",
 	"files": [
-		"/app",
+		"/dist",
 		"demo.gif"
 	],
-	"engines": {
-		"node": ">=10"
-	},
 	"scripts": {
 		"lint": "eslint .",
 		"lint:fix": "eslint . --fix"
