@@ -19,8 +19,12 @@
 		"demo.gif"
 	],
 	"scripts": {
-		"lint": "eslint .",
-		"lint:fix": "eslint . --fix"
+		"dev": "tsc --watch",
+		"build": "tsc",
+		"pack:list": "npm pack && tar -xvzf *.tgz && rm -rf package *.tgz",
+		"prepublishOnly": "yarn build",
+		"lint": "eslint . --ext .js,.ts",
+		"lint:fix": "eslint . --ext .js,.ts --fix"
 	},
 	"husky": {
 		"hooks": {
