@@ -44,7 +44,7 @@
 		"command-line"
 	],
 	"dependencies": {
-		"@octokit/rest": "^17.0.0",
+		"@octokit/rest": "^18.0.0",
 		"chalk": "^4.0.0",
 		"execa": "^3.4.0",
 		"inquirer": "^7.0.5",
