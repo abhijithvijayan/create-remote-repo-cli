@@ -1,7 +1,7 @@
-const meow = require('meow');
+import meow from 'meow';
 
 const cli = meow(
-	`
+  `
 	Usage
 	  $ create-remote-repo [input] [options]
 
@@ -14,14 +14,14 @@ const cli = meow(
 	Examples
 		$ create-remote-repo test-repo
 `,
-	{
-		flags: {
-			version: {
-				type: 'boolean',
-				alias: 'v',
-			},
-		},
-	}
+  {
+    flags: {
+      version: {
+        type: 'boolean',
+        alias: 'v',
+      },
+    },
+  }
 );
 
-module.exports = cli;
+export default cli;
