@@ -48,7 +48,7 @@
 		"chalk": "^4.0.0",
 		"execa": "^3.4.0",
 		"inquirer": "^7.0.5",
-		"meow": "^5.0.0",
+		"meow": "^9.0.0",
 		"ora": "^4.0.3",
 		"validate-npm-package-name": "^3.0.0",
 		"validate.io-array": "^1.0.6",
